@@ -20,12 +20,12 @@ class NextVehicleTest extends FunSpec {
         StopTime(1, Stop(7, 10, 7), LocalTime.of(12, 13, 0)),
       )
 
-      val stop = Stop(6, 8, 7)
-      val time = LocalTime.of(12, 0, 0)
-      val next = NextVehicle.from(lines, stops)(stop, time)
+      val point = Point(8, 7, LocalTime.of(12, 0, 0))
+      val next = NextVehicle.from(lines, stops)(point)
 
       assert(next.isDefined)
-      assert(next.get.stop == stop)
+      assert(next.get.stop.x == point.x)
+      assert(next.get.stop.y == point.y)
       assert(next.get.line == lines.head)
       assert(next.get.time == LocalTime.of(12, 11, 0))
     }
@@ -42,12 +42,12 @@ class NextVehicleTest extends FunSpec {
         StopTime(2, Stop(6, 3, 5), LocalTime.of(12, 5, 0)),
       )
 
-      val stop = Stop(2, 3, 2)
-      val time = LocalTime.of(12, 0, 0)
-      val next = NextVehicle.from(lines, stops)(stop, time)
+      val point = Point(3, 2, LocalTime.of(12, 0, 0))
+      val next = NextVehicle.from(lines, stops)(point)
 
       assert(next.isDefined)
-      assert(next.get.stop == stop)
+      assert(next.get.stop.x == point.x)
+      assert(next.get.stop.y == point.y)
       assert(next.get.line == lines.head)
       assert(next.get.time == LocalTime.of(12, 2, 0))
     }
@@ -64,9 +64,8 @@ class NextVehicleTest extends FunSpec {
         StopTime(2, Stop(6, 3, 5), LocalTime.of(12, 7, 0)),
       )
 
-      val stop = Stop(2, 3, 2)
-      val time = LocalTime.of(12, 4, 0)
-      val next = NextVehicle.from(lines, stops)(stop, time)
+      val point = Point(3, 2, LocalTime.of(12, 4, 0))
+      val next = NextVehicle.from(lines, stops)(point)
 
       assert(next.isDefined)
       assert(next.get.stop == Stop(5, 3, 2))
@@ -86,9 +85,8 @@ class NextVehicleTest extends FunSpec {
         StopTime(1, Stop(7, 10, 7), LocalTime.of(12, 13, 0)),
       )
 
-      val stop = Stop(6, 8, 7)
-      val time = LocalTime.of(12, 14, 0)
-      val next = NextVehicle.from(lines, stops)(stop, time)
+      val point = Point(8, 7, LocalTime.of(12, 14, 0))
+      val next = NextVehicle.from(lines, stops)(point)
 
       assert(next.isEmpty)
     }

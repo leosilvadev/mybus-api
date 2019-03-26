@@ -2,8 +2,8 @@ package com.github.leosilvadev.mybus.web.handlers
 
 import java.time.LocalTime
 
-import com.github.leosilvadev.mybus.NoStopFoundException
 import com.github.leosilvadev.mybus.domains.{ClosestStop, Point, StopTime}
+import com.github.leosilvadev.mybus.exceptions.NoStopFoundException
 import com.github.leosilvadev.mybus.web.{Params, Response}
 import com.github.leosilvadev.mybus.web.Routes.formatter
 import io.vertx.core.Handler

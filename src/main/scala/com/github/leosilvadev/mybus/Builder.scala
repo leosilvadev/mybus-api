@@ -14,7 +14,7 @@ object Builder {
     DomainReader.read(path, columns => Line(columns(0).toLong, columns(1)))
 
   def stops(path: String): List[Stop] =
-    DomainReader.read(path, columns => Stop(columns(0).toLong, columns(0).toLong, columns(0).toLong))
+    DomainReader.read(path, columns => Stop(columns(0).toLong, columns(1).toLong, columns(2).toLong))
 
   def stopTimes(path: String)(stops: List[Stop]): List[StopTime] =
     DomainReader.read(path, toStopTime(stops)).filterNot(_.isEmpty).map(_.get)
