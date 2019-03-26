@@ -4,7 +4,7 @@ import java.time.LocalTime
 
 import com.github.leosilvadev.mybus.NoStopFoundException
 import com.github.leosilvadev.mybus.domains.{ClosestStop, Point, StopTime}
-import com.github.leosilvadev.mybus.web.Params
+import com.github.leosilvadev.mybus.web.{Params, Response}
 import com.github.leosilvadev.mybus.web.Routes.formatter
 import io.vertx.core.Handler
 import io.vertx.lang.scala.json.Json
@@ -24,21 +24,13 @@ case class GetClosestStopTimeHandler(stopTimes: List[StopTime]) extends Handler[
 
     result match {
       case Success(stop) =>
-        context.response()
-          .setStatusCode(200)
-          .setChunked(true)
-          .end(ClosestStop.toJson(stop).encode())
+        Response.ok(context, ClosestStop.toJson(stop))
 
       case Failure(ex: NoStopFoundException) =>
-        context.response()
-          .setStatusCode(404)
-          .setChunked(true)
-          .end(Json.obj(("message", ex.getMessage)).encode())
+        Response.notFound(context, ex.getMessage)
 
       case Failure(ex) =>
-        context.response()
-          .setStatusCode(500)
-          .end(Json.obj(("message", ex.getMessage)).encode())
+        Response.internalError(context, ex.getMessage)
     }
   }
 

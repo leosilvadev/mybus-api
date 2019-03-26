@@ -1,6 +1,8 @@
 package com.github.leosilvadev.mybus
 
-import com.github.leosilvadev.mybus.web.Routes
+import com.github.leosilvadev.mybus.config.ServerConfig
+import com.github.leosilvadev.mybus.web.Server
+import com.typesafe.scalalogging.Logger
 import io.vertx.lang.scala.VertxExecutionContext
 import io.vertx.scala.core.Vertx
 
@@ -8,24 +10,23 @@ import scala.util.{Failure, Success}
 
 object Application extends App {
 
+  val logger = Logger("Application")
+
   val root = "/home/leosilvadev/dev/workspace/scala/mybus-api/src/main/resources/data/"
-  val lines = Builder.lines(s"$root/lines.csv")
-  val stops = Builder.stops(s"$root/stops.csv")
-
-  val delays = Builder.delays(s"$root/delays.csv")
-  val stopTimes = Builder.stopTimes(s"$root/times.csv")(stops)
-
+  val config = ServerConfig(
+    s"$root/lines.csv",
+    s"$root/stops.csv",
+    s"$root/times.csv",
+    s"$root/delays.csv",
+    8081
+  )
   val vertx = Vertx.vertx()
 
-  protected implicit val executionContext = VertxExecutionContext(vertx.getOrCreateContext())
+  implicit val executionContext = VertxExecutionContext(vertx.getOrCreateContext())
 
-  val router = Routes.all(vertx, stopTimes)
-
-  vertx.createHttpServer()
-    .requestHandler(router.accept(_))
-    .listenFuture(8081).onComplete {
-      case Success(_) => println("Server running")
-      case Failure(ex) => println(ex)
-    }
+  vertx.deployVerticleFuture(Server(config)) onComplete {
+    case Success(_) => logger.info(s"Server running at port ${config.serverPort}")
+    case Failure(ex) => logger.error(ex.getMessage, ex)
+  }
 
 }
