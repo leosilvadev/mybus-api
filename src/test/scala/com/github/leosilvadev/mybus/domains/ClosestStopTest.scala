@@ -31,7 +31,7 @@ class ClosestStopTest extends FunSpec {
       assert(closestStop.isEmpty)
     }
 
-    it("Must not find any stop when no stop is available") {
+    it("Must not find any stop when no stop is available by the time") {
       val stops = List(
         StopTime(1, Stop(1, 0, 2), LocalTime.of(12, 0, 0))
       )
