@@ -10,7 +10,7 @@ case class ClosestStop(x: Long, y: Long, distance: Double, time: LocalTime) exte
 
 object ClosestStop {
 
-  private val logger = Logger("StopTimes")
+  private val logger = Logger(ClosestStop.getClass.getName)
 
   /**
     * Returns the Closest stop given a list of available stop times and the actual customer point

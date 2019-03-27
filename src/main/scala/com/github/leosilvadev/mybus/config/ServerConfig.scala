@@ -4,4 +4,5 @@ case class ServerConfig(linesFilePath: String,
                         stopsFilePath: String,
                         timesFilePath: String,
                         delaysFilePath: String,
-                        serverPort: Int)
+                        serverPort: Int,
+                        endpointTimeout: Long)

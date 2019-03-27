@@ -10,7 +10,7 @@ import scala.util.{Failure, Success}
 
 object Application extends App {
 
-  val logger = Logger("Application")
+  val logger = Logger(Application.getClass.getName)
 
   val root = "/home/leosilvadev/dev/workspace/scala/mybus-api/src/main/resources/data/"
   val config = ServerConfig(
@@ -18,7 +18,8 @@ object Application extends App {
     s"$root/stops.csv",
     s"$root/times.csv",
     s"$root/delays.csv",
-    8081
+    8081,
+    1000
   )
   val vertx = Vertx.vertx()
 

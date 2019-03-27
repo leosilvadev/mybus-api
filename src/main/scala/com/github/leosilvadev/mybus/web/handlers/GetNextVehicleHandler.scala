@@ -34,7 +34,7 @@ case class GetNextVehicleHandler(lines: List[Line], stopTimes: List[StopTime]) e
   }
 
   private def nextVehicleFrom(stopTimes: List[StopTime], point: Point): Try[NextVehicle] = {
-    logger.debug("Looking for next vehicle at point {} in {}", point, stopTimes)
+    logger.debug("Searching for next vehicle at point {} in {}", point, stopTimes)
     NextVehicle.from(lines, stopTimes)(point)
       .map(Success(_))
       .getOrElse(Failure(new NoVehicleFoundException(point)))

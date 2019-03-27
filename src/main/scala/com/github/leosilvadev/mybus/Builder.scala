@@ -8,8 +8,6 @@ import com.github.leosilvadev.mybus.readers.DomainReader
 
 object Builder {
 
-  private val formatter = DateTimeFormatter.ISO_LOCAL_TIME
-
   def lines(path: String): List[Line] =
     DomainReader.read(path, columns => Line(columns(0).toLong, columns(1)))
 
@@ -24,7 +22,7 @@ object Builder {
 
   private def toStopTime(stops: List[Stop])(columns: Array[String]) = for {
     stop <- stops.find(s => s.id == columns(1).toLong)
-    stopTime <- Some(StopTime(columns(0).toLong, stop, LocalTime.parse(columns(2), formatter)))
+    stopTime <- Some(StopTime(columns(0).toLong, stop, LocalTime.parse(columns(2), DateTimeFormatter.ISO_LOCAL_TIME)))
   } yield stopTime
 
   private def toDelay(columns: Array[String]) = for {

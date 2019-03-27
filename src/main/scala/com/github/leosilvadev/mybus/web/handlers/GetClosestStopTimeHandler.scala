@@ -5,9 +5,7 @@ import java.time.LocalTime
 import com.github.leosilvadev.mybus.domains.{ClosestStop, Point, StopTime}
 import com.github.leosilvadev.mybus.exceptions.NoStopFoundException
 import com.github.leosilvadev.mybus.web.{Params, Response}
-import com.github.leosilvadev.mybus.web.Routes.formatter
 import io.vertx.core.Handler
-import io.vertx.lang.scala.json.Json
 import io.vertx.scala.ext.web.RoutingContext
 
 import scala.util.{Failure, Success, Try}
