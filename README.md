@@ -26,4 +26,13 @@ It is important to note that the x/y points must match an existent Stop.
 `GET /api/v1/lines/:lineName/delays`
 
 
+# How to run
+```sbt run```
 
+# What is missing
+- Externalize configuration (from a json/yml file or even remote provider)
+- Fatjar generation
+- Docker
+
+# Possible improvements
+- Divide and conquer with threads for finding the closest stop
