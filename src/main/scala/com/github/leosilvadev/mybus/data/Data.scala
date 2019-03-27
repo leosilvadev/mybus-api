@@ -1,12 +1,11 @@
-package com.github.leosilvadev.mybus
+package com.github.leosilvadev.mybus.data
 
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 import com.github.leosilvadev.mybus.domains.{Delay, Line, Stop, StopTime}
-import com.github.leosilvadev.mybus.readers.DomainReader
 
-object Builder {
+object Data {
 
   def lines(path: String): List[Line] =
     DomainReader.read(path, columns => Line(columns(0).toLong, columns(1)))

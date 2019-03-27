@@ -12,12 +12,11 @@ object Application extends App {
 
   val logger = Logger(Application.getClass.getName)
 
-  val root = "/home/leosilvadev/dev/workspace/scala/mybus-api/src/main/resources/data/"
   val config = ServerConfig(
-    s"$root/lines.csv",
-    s"$root/stops.csv",
-    s"$root/times.csv",
-    s"$root/delays.csv",
+    "data/lines.csv",
+    "data/stops.csv",
+    "data/times.csv",
+    "data/delays.csv",
     8081,
     1000
   )
