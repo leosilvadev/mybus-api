@@ -17,7 +17,7 @@ case class Server(serverConfig: ServerConfig) extends ScalaVerticle {
     val delays = Builder.delays(serverConfig.delaysFilePath)
     val stopTimes = Builder.stopTimes(serverConfig.timesFilePath)(stops)
 
-    val router = Routes.all(vertx, lines, stopTimes)
+    val router = Routes.all(vertx, lines, stopTimes, delays)
 
     vertx.createHttpServer()
       .requestHandler(router.accept(_))

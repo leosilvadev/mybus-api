@@ -20,4 +20,8 @@ object Params {
     Point(x, y, time)
   }
 
+  def lineName(request: HttpServerRequest) =
+    request.getParam("lineName")
+
+
 }

@@ -35,6 +35,21 @@ class DelayTest extends FunSpec {
       assert(delay.get.minutes == 1)
     }
 
+    it("Must find a delay when only one exist for the given line even when the line name has lower/upper case differences") {
+      val delays = List(
+        Delay("140", 2),
+        Delay("247", 5),
+        Delay("M4", 1)
+      )
+
+      val line = Line(1, "m4")
+
+      val delay = Delay.from(delays)(line)
+
+      assert(delay.isDefined)
+      assert(delay.get.minutes == 1)
+    }
+
     it("Must find the first delay when more one exist for the given line") {
       val delays = List(
         Delay("140", 2),
