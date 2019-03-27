@@ -18,13 +18,13 @@ object NextVehicle {
     *
     * @param lines All the existent lines
     * @param stopTimes All the existent stop times
-    * @param point The point that represents the stop where we want to look for the next vehicle
+    * @param referencePoint The point that represents the stop where we want to look for the next vehicle
     * @return the next vehicle (if there is) at the given stop
     */
-  def from(lines: List[Line], stopTimes: List[StopTime])(point: Point): Option[NextVehicle] = {
-    logger.debug("Searching for the next vehicle at the {}. Lines: {} and Stop times: {}", point, lines, stopTimes)
+  def from(lines: List[Line], stopTimes: List[StopTime])(referencePoint: Point): Option[NextVehicle] = {
+    logger.debug("Searching for the next vehicle at the {}. Lines: {} and Stop times: {}", referencePoint, lines, stopTimes)
     for {
-      stopTime <- stopTimes.filter(stopsAtSameLocation(point)).find(_.time.isAfter(point.time))
+      stopTime <- stopTimes.filter(_.time.isAfter(referencePoint.time)).find(stopsAtSameLocation(referencePoint))
       line <- lines.find(_.id == stopTime.lineId)
     } yield NextVehicle(line, stopTime.stop, stopTime.time)
   }
